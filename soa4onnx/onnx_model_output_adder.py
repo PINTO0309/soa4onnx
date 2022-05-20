@@ -95,15 +95,14 @@ def outputs_add(
     graph = gs.import_onnx(onnx_graph)
     graph.cleanup().toposort()
 
-    for output_op_name in output_op_names:
-        for graph_node in graph.nodes:
-            for graph_node_output in graph_node.outputs:
-                if graph_node_output.name == output_op_name:
-                    graph.outputs.append(graph_node_output)
-                    break
-            else:
-                continue
-            break
+    add_output_nodes = [
+        graph_node_output \
+            for output_op_name in output_op_names \
+                for graph_node in graph.nodes \
+                    for graph_node_output in graph_node.outputs \
+                        if graph_node_output.name == output_op_name
+    ]
+    graph.outputs = graph.outputs + add_output_nodes
 
     graph.cleanup().toposort()
 
