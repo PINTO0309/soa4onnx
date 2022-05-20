@@ -118,9 +118,19 @@ onnx_graph = rename(
 ```
 
 ## 6. Sample
+```bash
+$ soa4onnx \
+--input_onnx_file_path fusionnet_180x320.onnx \
+--output_op_names "onnx::Gather_76" "onnx::Add_89" \
+--output_onnx_file_path fusionnet_180x320_added.onnx
+```
 ### Before
+![image](https://user-images.githubusercontent.com/33194443/169518171-aa0f7a40-18ad-4393-a409-31ac0eea24bc.png)
+![image](https://user-images.githubusercontent.com/33194443/169518858-c6230f56-23c3-4925-906f-5db9f7bf8a19.png)
+![image](https://user-images.githubusercontent.com/33194443/169519158-8f0e5025-a002-44f5-8856-3267110d053a.png)
 
 ### After
+![image](https://user-images.githubusercontent.com/33194443/169518194-76b9306a-1bf9-4f06-ae1b-821fd84cdf02.png)
 
 ## 7. Reference
 1. https://github.com/onnx/onnx/blob/main/docs/Operators.md
