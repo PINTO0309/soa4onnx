@@ -1,5 +1,5 @@
 # soa4onnx
-**S**imple model **O**utput OP **A**dditional tools.
+**S**imple model **O**utput OP **A**dditional tools for **ONNX**.
 
 https://github.com/PINTO0309/simple-onnx-processing-tools
 
