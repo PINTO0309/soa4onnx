@@ -133,12 +133,14 @@ def outputs_add(
 def main():
     parser = ArgumentParser()
     parser.add_argument(
+        '-if',
         '--input_onnx_file_path',
         type=str,
         required=True,
         help='Input onnx file path.'
     )
     parser.add_argument(
+        '-on',
         '--output_op_names',
         type=str,
         nargs='+',
@@ -149,12 +151,14 @@ def main():
             '--output_op_names "onnx::Gather_76" "onnx::Add_89"'
     )
     parser.add_argument(
+        '-of',
         '--output_onnx_file_path',
         type=str,
         required=True,
         help='Output onnx file path.'
     )
     parser.add_argument(
+        '-n',
         '--non_verbose',
         action='store_true',
         help='Do not show all information logs. Only error logs are displayed.'

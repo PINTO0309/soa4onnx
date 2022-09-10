@@ -26,32 +26,32 @@ $ pip install -U onnx \
 https://github.com/PINTO0309/simple-onnx-processing-tools#docker
 
 ## 2. CLI Usage
-```bash
+```
 $ soa4onnx -h
 
 usage:
     soa4onnx [-h]
-    --input_onnx_file_path INPUT_ONNX_FILE_PATH
-    --output_op_names OUTPUT_OP_NAMES [OUTPUT_OP_NAMES ...]
-    --output_onnx_file_path OUTPUT_ONNX_FILE_PATH
-    [--non_verbose]
+    -if INPUT_ONNX_FILE_PATH
+    -on OUTPUT_OP_NAMES [OUTPUT_OP_NAMES ...]
+    -of OUTPUT_ONNX_FILE_PATH
+    [-n]
 
 optional arguments:
   -h, --help
         show this help message and exit.
 
-  --input_onnx_file_path INPUT_ONNX_FILE_PATH
+  -if INPUT_ONNX_FILE_PATH, --input_onnx_file_path INPUT_ONNX_FILE_PATH
         Input onnx file path.
 
-  --output_op_names OUTPUT_OP_NAMES [OUTPUT_OP_NAMES ...]
+  -on OUTPUT_OP_NAMES [OUTPUT_OP_NAMES ...], --output_op_names OUTPUT_OP_NAMES [OUTPUT_OP_NAMES ...]
         Output name to be added to the models output OP.
         e.g.
         --output_op_names "onnx::Gather_76" "onnx::Add_89"
 
-  --output_onnx_file_path OUTPUT_ONNX_FILE_PATH
+  -of OUTPUT_ONNX_FILE_PATH, --output_onnx_file_path OUTPUT_ONNX_FILE_PATH
         Output onnx file path.
 
-  --non_verbose
+  -n, --non_verbose
         Do not show all information logs. Only error logs are displayed.
 ```
 
