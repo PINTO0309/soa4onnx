@@ -34,6 +34,7 @@ usage:
     -if INPUT_ONNX_FILE_PATH
     -on OUTPUT_OP_NAMES [OUTPUT_OP_NAMES ...]
     -of OUTPUT_ONNX_FILE_PATH
+    [-d]
     [-n]
 
 optional arguments:
@@ -51,6 +52,9 @@ optional arguments:
   -of OUTPUT_ONNX_FILE_PATH, --output_onnx_file_path OUTPUT_ONNX_FILE_PATH
         Output onnx file path.
 
+  -d, --do_not_type_check
+        Whether not to check that input and output tensors have data types defined.'
+
   -n, --non_verbose
         Do not show all information logs. Only error logs are displayed.
 ```
@@ -67,6 +71,7 @@ outputs_add(
     onnx_graph: Union[onnx.onnx_ml_pb2.ModelProto, NoneType] = None,
     output_op_names: Union[List[str], NoneType] = [],
     output_onnx_file_path: Union[str, NoneType] = '',
+    do_not_type_check: Union[bool, NoneType] = False,
     non_verbose: Union[bool, NoneType] = False
 ) -> onnx.onnx_ml_pb2.ModelProto
 
@@ -92,6 +97,10 @@ outputs_add(
     output_onnx_file_path: Optional[str]
         Output onnx file path. If not specified, no ONNX file is output.
         Default: ''
+
+    do_not_type_check: Optional[bool]
+        Whether not to check that input and output tensors have data types defined.\n\
+        Default: False
 
     non_verbose: Optional[bool]
         Do not show all information logs. Only error logs are displayed.
