@@ -44,7 +44,8 @@ optional arguments:
   -if INPUT_ONNX_FILE_PATH, --input_onnx_file_path INPUT_ONNX_FILE_PATH
         Input onnx file path.
 
-  -on OUTPUT_OP_NAMES [OUTPUT_OP_NAMES ...], --output_op_names OUTPUT_OP_NAMES [OUTPUT_OP_NAMES ...]
+  -on OUTPUT_OP_NAMES [OUTPUT_OP_NAMES ...], \
+    --output_op_names OUTPUT_OP_NAMES [OUTPUT_OP_NAMES ...]
         Output name to be added to the models output OP.
         e.g.
         --output_op_names "onnx::Gather_76" "onnx::Add_89"
