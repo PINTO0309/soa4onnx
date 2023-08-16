@@ -99,7 +99,7 @@ outputs_add(
         Default: ''
 
     do_not_type_check: Optional[bool]
-        Whether not to check that input and output tensors have data types defined.\n\
+        Whether not to check that input and output tensors have data types defined.
         Default: False
 
     non_verbose: Optional[bool]
