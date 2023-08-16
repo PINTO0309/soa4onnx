@@ -38,6 +38,7 @@ def outputs_add(
     output_op_names: Optional[List[str]] = [],
     output_onnx_file_path: Optional[str] = '',
     non_verbose: Optional[bool] = False,
+    do_not_type_check: Optional[bool] = False,
 ) -> onnx.ModelProto:
     """
     Parameters
@@ -66,6 +67,11 @@ def outputs_add(
     non_verbose: Optional[bool]
         Do not show all information logs. Only error logs are displayed.\n\
         Default: False
+
+    do_not_type_check: Optional[bool]
+        Whether not to check that input and output tensors have data types defined.\n\
+        Default: False
+
 
     Returns
     -------
@@ -109,9 +115,9 @@ def outputs_add(
     # Shape Estimation
     outputops_added_graph = None
     try:
-        outputops_added_graph = onnx.shape_inference.infer_shapes(gs.export_onnx(graph))
+        outputops_added_graph = onnx.shape_inference.infer_shapes(gs.export_onnx(graph, not do_not_type_check))
     except:
-        outputops_added_graph = gs.export_onnx(graph)
+        outputops_added_graph = gs.export_onnx(graph, not do_not_type_check)
         if not non_verbose:
             print(
                 f'{Color.YELLOW}WARNING:{Color.RESET} '+
@@ -133,14 +139,12 @@ def outputs_add(
 def main():
     parser = ArgumentParser()
     parser.add_argument(
-        '-if',
         '--input_onnx_file_path',
         type=str,
         required=True,
         help='Input onnx file path.'
     )
     parser.add_argument(
-        '-on',
         '--output_op_names',
         type=str,
         nargs='+',
@@ -151,17 +155,20 @@ def main():
             '--output_op_names "onnx::Gather_76" "onnx::Add_89"'
     )
     parser.add_argument(
-        '-of',
         '--output_onnx_file_path',
         type=str,
         required=True,
         help='Output onnx file path.'
     )
     parser.add_argument(
-        '-n',
         '--non_verbose',
         action='store_true',
         help='Do not show all information logs. Only error logs are displayed.'
+    )
+    parser.add_argument(
+        '--do_not_type_check',
+        action='store_true',
+        help='Whether not to check that input and output tensors have data types defined.'
     )
     args = parser.parse_args()
 
@@ -169,6 +176,7 @@ def main():
     output_op_names = args.output_op_names
     output_onnx_file_path = args.output_onnx_file_path
     non_verbose = args.non_verbose
+    do_not_type_check = args.do_not_type_check
 
     # Load
     onnx_graph = onnx.load(input_onnx_file_path)
@@ -180,6 +188,7 @@ def main():
         output_op_names=output_op_names,
         output_onnx_file_path=output_onnx_file_path,
         non_verbose=non_verbose,
+        do_not_type_check=do_not_type_check,
     )
 
 
