@@ -125,7 +125,7 @@ $ soa4onnx \
 ```python
 from soa4onnx import outputs_add
 
-onnx_graph = rename(
+onnx_graph = outputs_add(
     input_onnx_file_path="fusionnet_180x320.onnx",
     output_op_names=["onnx::Gather_76", "onnx::Add_89"],
     output_onnx_file_path="fusionnet_180x320_added.onnx",
