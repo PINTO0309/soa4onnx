@@ -92,6 +92,15 @@ def outputs_add(
     # onnx_graph If specified, onnx_graph is processed first
     if not onnx_graph:
         onnx_graph = onnx.load(input_onnx_file_path)
+
+    # domain, ir_version
+    domain: str = onnx_graph.domain
+    ir_version: int = onnx_graph.ir_version
+    meta_data = {'domain': domain, 'ir_version': ir_version}
+    metadata_props = None
+    if hasattr(onnx_graph, 'metadata_props'):
+        metadata_props = onnx_graph.metadata_props
+
     graph = gs.import_onnx(onnx_graph)
     graph.cleanup().toposort()
 
@@ -109,9 +118,15 @@ def outputs_add(
     # Shape Estimation
     outputops_added_graph = None
     try:
-        outputops_added_graph = onnx.shape_inference.infer_shapes(gs.export_onnx(graph))
+        exported_onnx_graph = gs.export_onnx(graph, do_type_check=False, **meta_data)
+        if metadata_props is not None:
+            exported_onnx_graph.metadata_props.extend(metadata_props)
+        outputops_added_graph = onnx.shape_inference.infer_shapes(exported_onnx_graph)
     except:
-        outputops_added_graph = gs.export_onnx(graph)
+        exported_onnx_graph = gs.export_onnx(graph, do_type_check=False, **meta_data)
+        if metadata_props is not None:
+            exported_onnx_graph.metadata_props.extend(metadata_props)
+        outputops_added_graph = exported_onnx_graph
         if not non_verbose:
             print(
                 f'{Color.YELLOW}WARNING:{Color.RESET} '+
